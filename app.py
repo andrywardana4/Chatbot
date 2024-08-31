@@ -30,16 +30,26 @@ model = genai.GenerativeModel(model_name="gemini-1.0-pro-001",
 
 prompt_parts = [
     # Masukkan prompt parts di sini seperti pada kode Anda
-      "dinas: layanan",
+    "dinas: layanan",
     "penjelasan dinas perdangan: Perindustrian Verifikasi Ijin pada OSS, Validasi Cek Lokasi Usaha Industri, Surat Keterangan Pelaku Industri, Surat Pengantar Pengiriman Asal Barang, Pendaftaran Akun SIINas, Sertifikat TKDN. Perdagangan Perdagangan Luar Negeri & Perdagangan Dalam Negeri.Metrologi perizinan Alat - Alat Ukur, Takar, Timbang dan Perlengkapannya (UTTP)",
     "dinas: tentang kami",
     "penjelasan dinas perdangan: Website Resmi Dinas Perdagangan dan Perindustrian Kabupaten Kotawaringin Timur. Kantor Jalan Jenderal Sudirman 6,7 Sampit, Kalimantan Tengah Kode Pos 74322",
     "dinas: sosial media kami"
     "penjelasan dinas perdangan: website, dispedagin.kotimkab.go.id ", "instagram, disperdagin.kotim", "email, disperidag@kotimkab.go.id"
     "dinas: informasi publik",
-    "penjelasan dinas perdangan: belom ada isi",
+    "penjelasan dinas perdangan: belom ada isi" "Kami menyediakan informasi publik terkait dengan layanan perizinan, kebijakan, dan program yang dijalankan oleh Dinas Perdagangan dan Perindustrian Kabupaten Kotawaringin Timur.",
     "dinas: harga daging",
     "penjelasan dinas perdangan: harga sapi bahan dalam pada tanggal 25 oktober tahun 2023 per kilo adalah 160000",
+    "dinas: estimasi waktu pembuatan izin UMKM",
+    "penjelasan_dinas_perdagangan : Estimasi waktu pembuatan izin UMKM adalah 1 minggu.",
+    "dinas: estimasi waktu pembuatan izin Perdagangan Dalam Negeri",
+    "penjelasan_dinas_perdagangan: Estimasi waktu pembuatan izin Perdagangan Dalam Negeri adalah 1-2 minggu.",
+    "dinas: estimasi waktu pembuatan izin Industri",
+    "penjelasan_dinas_perdagangan: Estimasi waktu pembuatan izin Industri adalah 2-3 minggu.",
+    "dinas: estimasi waktu pembuatan izin Perdagangan Luar Negeri",
+    "penjelasan_dinas_perdagangan: Estimasi waktu pembuatan izin Perdagangan Luar Negeri adalah 2 minggu.",
+    "dinas: estimasi waktu pembuatan izin Metrologi",
+    "penjelasan_dinas_perdagangan: Estimasi waktu pembuatan izin Metrologi untuk Alat - Alat Ukur, Takar, Timbang dan Perlengkapannya (UTTP) adalah 1 minggu."
     "dinas: kepala dinas",
     "penjelasan dinas perdangan: pemimpin dinas perdagangan kabupaten kotawaringin timur, Dr.Drs.H.zulhaidir,M.si. pembina tingkat 1(IV/b). NIP 191611161994031006",
     "dinas: sekretaris",
@@ -127,9 +137,14 @@ salam_questions = {
     "selamat sore": "Selamat sore! Ada yang bisa saya bantu?",
     "selamat malam": "Selamat malam! Ada yang bisa saya bantu?",
     "apa kabar": "Saya baik, terima kasih! Bagaimana dengan Anda?",
+    "apa kabarmu": "Saya baik, terima kasih! Bagaimana dengan Anda?",
+    "apa kabar kamu": "Saya baik, terima kasih! Bagaimana dengan Anda?",
     "terima kasih": "Sama-sama! Ada lagi yang bisa saya bantu?",
 }
 
+salam_angka = {
+    "12 oke terima kasih" 
+}
 terima_kasih_responses = [
     "Sama-sama! Senang bisa membantu. Ada lagi yang bisa saya bantu?",
     "Terima kasih kembali! Jika ada pertanyaan lain, jangan ragu untuk menanyakan.",
@@ -200,8 +215,14 @@ def ask():
     # Cek salam
     if inputan in salam_questions:
         return jsonify({"response": salam_questions[inputan]})
+    
+    if inputan in salam_angka:
+        return jsonify({"response": salam_angka[inputan]})
         
     # Menambahkan respon berdasarkan kata kunci
+    if "terima kasih" in inputan:
+        return jsonify({"response": random.choice(terima_kasih_responses)})
+    
     if "terima kasih" in inputan:
         return jsonify({"response": random.choice(terima_kasih_responses)})
     
